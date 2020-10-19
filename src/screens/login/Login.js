@@ -7,6 +7,7 @@ import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { Redirect } from 'react-router-dom';
+import Header from '../../common/header/Header';
 
 class Login extends Component {
 
@@ -41,35 +42,35 @@ class Login extends Component {
             this.setState({ incorrectUsernamePasswordMessage: "displayNone" });
         } else if (this.state.username === username && this.state.password === password) {
             sessionStorage.setItem("access-token", accessToken);
-            this.setState({ 
+            this.setState({
                 isLoggedIn: true,
             });
         } else {
             this.setState({ incorrectUsernamePasswordMessage: "displayBlock" });
         }
-
     }
 
     render() {
         return (
             <div>
+                <Header profile_picture={this.state.profile_picture} showSearchBox={this.state.isLoggedIn ? true : false} showProfileIcon={this.state.isLoggedIn ? true : false} onSearchTextChange={this.onSearchTextChange} showMyAccount={true} />
                 {this.state.isLoggedIn === true ?
-                <Redirect to= "/home"/>
-                :
+                    <Redirect to="/home" />
+                    :
                     <div>
-                        
+
                         <Card className="login-card">
                             <p className="login-header">LOGIN</p>
                             <FormControl required>
                                 <InputLabel htmlFor="username">Username</InputLabel>
-                                <Input id="username" type="text" username={this.state.username} onChange={this.inputUsernameHandler} value = {this.state.username}/>
+                                <Input id="username" type="text" username={this.state.username} onChange={this.inputUsernameHandler} value={this.state.username} />
                                 <FormHelperText className={this.state.usernameRequired}><span className="required">required</span></FormHelperText>
                             </FormControl>
                             <br />
                             <br />
                             <FormControl required>
                                 <InputLabel htmlFor="password">Password</InputLabel>
-                                <Input id="password" type="password" password={this.state.password} onChange={this.inputPasswordHandler} value = {this.state.password}/>
+                                <Input id="password" type="password" password={this.state.password} onChange={this.inputPasswordHandler} value={this.state.password} />
                                 <FormHelperText className={this.state.passwordRequired}><span className="required">required</span></FormHelperText>
                             </FormControl>
                             <br />
